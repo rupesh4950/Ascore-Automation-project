@@ -34,7 +34,7 @@ public final class ExtentConfig implements FrameworkConstants {
 		tl.set(test);
 	}
 
-	static void removeExtentTest() {
+	public static void removeExtentTest() {
 		tl.remove();
 	}
 
@@ -43,7 +43,9 @@ public final class ExtentConfig implements FrameworkConstants {
 		System.out.println("extent config setup");
 		if (Objects.isNull(extent)) {
 			String na = Utility.getCurrentDateAndTime();
+			
 			System.out.println(na);
+			
 			String path = "Report - " + na;
 			if (screenRecord) {
 				try {
@@ -59,7 +61,12 @@ public final class ExtentConfig implements FrameworkConstants {
 			utility.suiteStartTime();
 			na = Utility.getCurrentDateAndTime();
 			// remove this line next line to generate differnet doc
+			if(newReport) {
 			na="Acore  "+ na;
+			}
+			else {
+				na="Acore";
+			}
 			System.out.println(na);
 			
 			path = "Report - " + na + ".html";

@@ -3,15 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="test_Scripts.HM001">
+      <class name="test_Scripts.AcrossGeo">
         <methods>
+          <include name="Ascore"/>
           <include name="afterSuite"/>
           <include name="CloseApp"/>
           <include name="browserSetup"/>
-          <include name="Ascore"/>
           <include name="beforeSuite"/>
         </methods>
-      </class> <!-- test_Scripts.HM001 -->
+      </class> <!-- test_Scripts.AcrossGeo -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

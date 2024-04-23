@@ -12,7 +12,7 @@ public class WorkDetails extends GlobalVariables {
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		String companyName = nlp.getValueAtIndex(valuesList, 63);// 63 is the index for the first company
-		nlp.enterInputIntoElemenet(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company", noOFCommpany1),
+		nlp.enterInputIntoElemenet(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company ", noOFCommpany1),
 				companyName);
 
 		// to enter the company name
@@ -25,9 +25,9 @@ public class WorkDetails extends GlobalVariables {
 		} catch (Exception e) {
 			String others = "others";
 			nlp.clearTextFromInputField(
-					repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company", noOFCommpany1));
+					repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company ", noOFCommpany1));
 			nlp.enterInputIntoElemenet(
-					repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company", noOFCommpany1), others);
+					repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company ", noOFCommpany1), others);
 			nlp.Click(repo.educationDetailsPage.getRequriredDropDownWithName(others));
 			System.out.println(" inside catch " + isDisplayed);
 			nlp.enterInputIntoElemenet(
@@ -49,6 +49,8 @@ public class WorkDetails extends GlobalVariables {
 		// city
 		nlp.scrollTtillElementVisible(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("City", noOFCommpany1));
 		String city=nlp.getValueAtIndex(valuesList, 65);// city index is 65
+		city=checkCity(city);
+		
 		nlp.Click(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("City", noOFCommpany1));
 		nlp.enterInputIntoElemenet(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("City", noOFCommpany1),city);
 		nlp.Click(repo.workDetailsPage.getjobCityOptionsDropDownWithName(city));
@@ -62,7 +64,7 @@ public class WorkDetails extends GlobalVariables {
 			String isThisCurrentCompany=nlp.getValueAtIndex(valuesList, 68);//68 is the index for currnet emploued
 			if(isThisCurrentCompany.toUpperCase().contains("YES")||isThisCurrentCompany.toUpperCase().contains("Y")) {
 				// click on the check box
-				nlp.Click(repo.workDetailsPage.getisThisYourCurrentCompanyWithName());
+				nlp.Click(repo.workDetailsPage.getisThisYourCurrentCompanyWithName(noOFCommpany1));
 			}
 			else {
 				sg.profileDetails.clickOnDate(repo.workDetailsPage.getcalanderIcon("End Date", noOFCommpany1),repo.workDetailsPage.getcalanderIcon("End Date", noOFCommpany1),endDate);
@@ -76,12 +78,25 @@ public class WorkDetails extends GlobalVariables {
 		
 	}
 
+	private String checkCity(String city) {
+		if (city.equalsIgnoreCase("Bangalore")) {
+			return ("Bangalore Urban");
+		
+		}
+		if (city.equalsIgnoreCase("Mumbai")) {
+			return("Mumbai City");
+			
+		}
+		return city;
+		
+	}
+
 	public void fill2ndCompanyDetails(ArrayList<String> valuesList, Boolean currentlyEmployedStaues) throws CustomException, InterruptedException {
 		String noOFCommpany1="2";
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		String companyName = nlp.getValueAtIndex(valuesList, 69);// 69 is the index for the name company
-		nlp.enterInputIntoElemenet(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company", noOFCommpany1),
+		nlp.enterInputIntoElemenet(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company ", noOFCommpany1),
 				companyName);
 
 		// to enter the company name
@@ -94,9 +109,9 @@ public class WorkDetails extends GlobalVariables {
 		} catch (Exception e) {
 			String others = "others";
 			nlp.clearTextFromInputField(
-					repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company", noOFCommpany1));
+					repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company ", noOFCommpany1));
 			nlp.enterInputIntoElemenet(
-					repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company", noOFCommpany1), others);
+					repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company ", noOFCommpany1), others);
 			nlp.Click(repo.educationDetailsPage.getRequriredDropDownWithName(others));
 			System.out.println(" inside catch " + isDisplayed);
 			nlp.enterInputIntoElemenet(
@@ -118,6 +133,7 @@ public class WorkDetails extends GlobalVariables {
 		// city
 		nlp.scrollTtillElementVisible(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("City", noOFCommpany1));
 		String city=nlp.getValueAtIndex(valuesList, 71);// city index is 71
+		city=checkCity(city);
 		nlp.Click(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("City", noOFCommpany1));
 		nlp.enterInputIntoElemenet(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("City", noOFCommpany1),city);
 		nlp.Click(repo.workDetailsPage.getjobCityOptionsDropDownWithName(city));
@@ -131,7 +147,7 @@ public class WorkDetails extends GlobalVariables {
 			String isThisCurrentCompany=nlp.getValueAtIndex(valuesList, 74);//68 is the index for currnet emploued
 			if(isThisCurrentCompany.toUpperCase().contains("YES")||isThisCurrentCompany.toUpperCase().contains("Y")) {
 				// click on the check box
-				nlp.Click(repo.workDetailsPage.getisThisYourCurrentCompanyWithName());
+				nlp.Click(repo.workDetailsPage.getisThisYourCurrentCompanyWithName(noOFCommpany1));
 			}
 			else {
 				sg.profileDetails.clickOnDate(repo.workDetailsPage.getcalanderIcon("End Date", noOFCommpany1),repo.workDetailsPage.getcalanderIcon("End Date", noOFCommpany1),endDate);
@@ -150,7 +166,7 @@ public class WorkDetails extends GlobalVariables {
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		String companyName = nlp.getValueAtIndex(valuesList, 75);// 75 is the index for the name company
-		nlp.enterInputIntoElemenet(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company", noOFCommpany1),
+		nlp.enterInputIntoElemenet(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company ", noOFCommpany1),
 				companyName);
 
 		// to enter the company name
@@ -163,9 +179,9 @@ public class WorkDetails extends GlobalVariables {
 		} catch (Exception e) {
 			String others = "others";
 			nlp.clearTextFromInputField(
-					repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company", noOFCommpany1));
+					repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company ", noOFCommpany1));
 			nlp.enterInputIntoElemenet(
-					repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company", noOFCommpany1), others);
+					repo.workDetailsPage.getcompanyDetailsInputFeildWithName("Company ", noOFCommpany1), others);
 			nlp.Click(repo.educationDetailsPage.getRequriredDropDownWithName(others));
 			System.out.println(" inside catch " + isDisplayed);
 			nlp.enterInputIntoElemenet(
@@ -187,6 +203,7 @@ public class WorkDetails extends GlobalVariables {
 		// city
 		nlp.scrollTtillElementVisible(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("City", noOFCommpany1));
 		String city=nlp.getValueAtIndex(valuesList, 77);// city index is 77
+		city=checkCity(city);
 		nlp.Click(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("City", noOFCommpany1));
 		nlp.enterInputIntoElemenet(repo.workDetailsPage.getcompanyDetailsInputFeildWithName("City", noOFCommpany1),city);
 		nlp.Click(repo.workDetailsPage.getjobCityOptionsDropDownWithName(city));
@@ -200,7 +217,7 @@ public class WorkDetails extends GlobalVariables {
 			String isThisCurrentCompany=nlp.getValueAtIndex(valuesList, 80);//68 is the index for currnet emploued
 			if(isThisCurrentCompany.toUpperCase().contains("YES")||isThisCurrentCompany.toUpperCase().contains("Y")) {
 				// click on the check box
-				nlp.Click(repo.workDetailsPage.getisThisYourCurrentCompanyWithName());
+				nlp.Click(repo.workDetailsPage.getisThisYourCurrentCompanyWithName(noOFCommpany1));
 			}
 			else {
 				sg.profileDetails.clickOnDate(repo.workDetailsPage.getcalanderIcon("End Date", noOFCommpany1),repo.workDetailsPage.getcalanderIcon("End Date", noOFCommpany1),endDate);

@@ -3,6 +3,8 @@ package test_Scripts;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -25,7 +27,7 @@ import pom_scripts.BasePage;
 import pom_scripts.Reopsitory;
 import pom_scripts.stepGroups.StepGroup;
 
-public class HM001 extends Base_Test {
+public class AcrossGeo extends Base_Test {
 	@Test(priority = 1)
 	public void Ascore() throws Exception {
 		
@@ -34,8 +36,8 @@ public class HM001 extends Base_Test {
 		nlp.OpenBrowser();
 		// fist i s to create all these
 
-	for(int times=1;times>=0;times--) {
-		className = "testign + "+ (times+1);
+	for(int times=1;times<=noOfIterations;times++) {
+		className = "testign + "+ (times);
 		ExtentConfig.createTest(className);// it will create a new test
 		try {
 		
@@ -49,13 +51,13 @@ public class HM001 extends Base_Test {
 		nlp.createWorkBook(EXCEL_PATH);
 		Workbook book = nlp.getWrokBook();
 		ArrayList<String> header = nlp.getRowData(book, EXCEL_SHEETNAME, 0);
-		valuesList = nlp.getRowData(book, EXCEL_SHEETNAME, times+1);// TO FETCH THE ROW VALUES
+		valuesList = nlp.getRowData(book, EXCEL_SHEETNAME, times);// TO FETCH THE ROW VALUES
 		for (int i = 0; i < header.size(); i++) {
 			System.out.println(i + " " + header.get(i) + "  =  " + valuesList.get(i));
 		}
 
 		String email = nlp.getValueAtIndex(valuesList, 5);// email index is 5
-		email = "pranavlondhe111@gmail.com";
+	//	email = "pranavlondhe111@gmail.com";
 		System.out.println(email);
 		
 		sg.home.sigin(email, "Password@123");
@@ -103,16 +105,29 @@ public class HM001 extends Base_Test {
 		nlp.Click(repo.technicalDetailsPage.getOptionWithName(domine));
 		// job role
 		String jobRole = nlp.getValueAtIndex(valuesList, 89).strip();// jobRole index is 89
-		nlp.enterInputIntoElemenet(repo.technicalDetailsPage.getInputFeildsWithName("Job Role"), jobRole);
-		nlp.Click(repo.technicalDetailsPage.getOptionWithName(jobRole));
+		nlp.enterInputIntoElemenet(repo.technicalDetailsPage.getInputFeildsWithName("Job Role"), jobRole.strip());
+		//nlp.Click(repo.technicalDetailsPage.getOptionWithName(jobRole));
+		String xpath="//div[@role=\"listbox\"]//div[contains(text(),'%s')]";
+		try {
+		driver.findElement(By.xpath(String.format(xpath, jobRole.strip()))).click();
+		}catch (Exception e) {
+			info("failed to fine the job role in the ui");
+			action.sendKeys(Keys.ENTER).build().perform();
+		}
+		
+		pass("clicked on the job role "+ jobRole);
 		enterSkills(valuesList);
 		// click on add button
+		nlp.Click(repo.profileUpdatePage.getAdd_ButtonWithName());
+		Thread.sleep(2000);
 
 		bool = true;
 		}
 		catch (Exception e) {
+			
 			fail(e.toString());
 			bool = true;
+			ExtentConfig.removeExtentTest();
 		}
 	}
 
@@ -184,9 +199,8 @@ public class HM001 extends Base_Test {
 			// fill the notice period
 			String noticePeroid = nlp.getValueAtIndex(valuesList, 82); // 82 is the notice period
 			nlp.Click(repo.workDetailsPage.getworkDetailsInputfeildWithName("Notice Period"));
-			nlp.enterInputIntoElemenet(repo.workDetailsPage.getworkDetailsInputfeildWithName("Notice Period"),
-					noticePeroid);
-			nlp.Click(repo.workDetailsPage.getjobCityOptionsDropDownWithName(noticePeroid));
+		//	nlp.enterInputIntoElemenet(repo.workDetailsPage.getworkDetailsInputfeildWithName("Notice Period"),		noticePeroid);
+			nlp.Click(repo.workDetailsPage.getjobCityOptionsDropDownWithName(noticePeroid.strip()));
 			//////////////
 			// fill prefered location
 			fillPreferedLocation(valuesList);
@@ -230,8 +244,18 @@ public class HM001 extends Base_Test {
 
 	private void fillPreferedWorLocation(ArrayList<String> valuesList) throws Exception {
 		String location = nlp.getValueAtIndex(valuesList, 83); // 83 is the prefered location index
+		if(location.strip().toUpperCase().equalsIgnoreCase("NA")) {
+			nlp.enterInputIntoElemenet(repo.workDetailsPage.getworkDetailsInputfeildWithName("Preferred work location"),
+					"Any Location");
+			nlp.Click(repo.workDetailsPage.getRequriredDropDownWithName("Any Location"));
+			return;
+		}
 		String[] loc = nlp.convertStringToList(location, ",");
 		if (loc[0].equalsIgnoreCase("Any Location")) {
+			nlp.enterInputIntoElemenet(repo.workDetailsPage.getworkDetailsInputfeildWithName("Preferred work location"),
+					"Any Location");
+			nlp.Click(repo.workDetailsPage.getRequriredDropDownWithName("Any Location"));
+			return;
 
 		}
 		for (int i = 0; i < loc.length; i++) {
@@ -284,9 +308,9 @@ public class HM001 extends Base_Test {
 		String degree1 = degree.toUpperCase();
 		String diplomOrPUCorITI1 = diplomOrPUCorITI.toUpperCase();
 		String ssc1 = ssc.toUpperCase();
-
+		nlp.Click(repo.educationDetailsPage.getHighestEducationInputFiledWithName());
 		if (higestDegree.contains(ms) || higestDegree.contains(ms1)) {
-			nlp.Click(repo.educationDetailsPage.getHighestEducationInputFiledWithName());
+//			nlp.Click(repo.educationDetailsPage.getHighestEducationInputFiledWithName());
 			nlp.enterInputIntoElemenet(repo.educationDetailsPage.getHighestEducationInputFiledWithName(), ms1);
 			nlp.Click(repo.educationDetailsPage.getHigestEducationDropDownWithName(msA));// msA means its actual
 			// Masters Degree
@@ -295,7 +319,7 @@ public class HM001 extends Base_Test {
 			dipllomoCheckAndFill(valuesList, diplomOrPUCorITI, diplomOrPUCorITI);// it will auto fill the values
 		} else if (higestDegree.contains(degree1)) {// if it is degree the we need to fill the degreea and need to fill
 													// the values fo diploma or inter or 12 or 12th or puc
-			nlp.Click(repo.educationDetailsPage.getHighestEducationInputFiledWithName());
+//			nlp.Click(repo.educationDetailsPage.getHighestEducationInputFiledWithName());
 			nlp.enterInputIntoElemenet(repo.educationDetailsPage.getHighestEducationInputFiledWithName(), degree);
 			nlp.Click(repo.educationDetailsPage.getHigestEducationDropDownWithName(degree));
 			// till here select degree form the drop down
@@ -304,14 +328,14 @@ public class HM001 extends Base_Test {
 
 		} else if (higestDegree.contains("DIPLOMA") || higestDegree.contains("PUC") || higestDegree.contains("ITI")
 				|| higestDegree.contains("12") || higestDegree.contains("12.00") || higestDegree.contains("12th")) {
-			nlp.Click(repo.educationDetailsPage.getHighestEducationInputFiledWithName());
+//			nlp.Click(repo.educationDetailsPage.getHighestEducationInputFiledWithName());
 			nlp.enterInputIntoElemenet(repo.educationDetailsPage.getHighestEducationInputFiledWithName(),
 					diplomOrPUCorITI);
 			nlp.Click(repo.educationDetailsPage.getHigestEducationDropDownWithName(diplomOrPUCorITI));
 			dipllomoCheckAndFill(valuesList, diplomOrPUCorITI, diplomOrPUCorITI);
 
 		} else if (higestDegree.contains("SSLC") || higestDegree.contains("SSC")) {
-			nlp.Click(repo.educationDetailsPage.getHighestEducationInputFiledWithName());
+//			nlp.Click(repo.educationDetailsPage.getHighestEducationInputFiledWithName());	
 			nlp.enterInputIntoElemenet(repo.educationDetailsPage.getHighestEducationInputFiledWithName(), ssc);
 			nlp.Click(repo.educationDetailsPage.getHigestEducationDropDownWithName(ssc));
 		}

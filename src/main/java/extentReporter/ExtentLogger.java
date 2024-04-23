@@ -28,6 +28,13 @@ public final class ExtentLogger
 			
 		//	System.out.println("pass2");
 	}
+	public static void info(String logMessage) {
+		try {
+			ExtentConfig.getExtentTest().info(logMessage);
+		} catch (Exception e) {
+			ExtentConfig.getExtentTest().info("no message passed");
+		}
+	}
 	public static void pass(String logMessage,boolean b)
 	{
 			try {

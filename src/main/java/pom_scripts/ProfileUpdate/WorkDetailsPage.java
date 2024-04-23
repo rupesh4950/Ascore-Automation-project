@@ -60,7 +60,7 @@ public class WorkDetailsPage extends BasePage{
 	}
 
 	private String getInputFieldXpath(String dynamicValue1, String dynamicValue2) {
-		String companyDetailsInputFeildXpath="(//span[contains(text(),'%s')]//ancestor::div[contains(@class,'individual')]//input)["+dynamicValue2+"]";
+		String companyDetailsInputFeildXpath="(//span[text()='%s']//ancestor::div[contains(@class,'individual')]//input)["+dynamicValue2+"]";
 		String xp = String.format(companyDetailsInputFeildXpath, dynamicValue1);
 		return xp;
 
@@ -107,6 +107,7 @@ public class WorkDetailsPage extends BasePage{
 
 			public Object[] getjobCityOptionsDropDownWithName(String DynamicValue) {
 				String xp = String.format(jobOptionsDropDownXpath, DynamicValue);
+				System.out.println(xp);
 				jobOptionsDropDown = driver.findElement(By.xpath(xp));
 				System.out.println("element identified "+ xp);
 				Object[] l = { jobOptionsDropDown, DynamicValue+"Dropdown" };
@@ -161,13 +162,17 @@ public class WorkDetailsPage extends BasePage{
 			}
 			
 		// Is this the current company
-			@FindBy(xpath = "//*[contains(text(),'Is this the current company')]/..//input")
+			String currnetCompanyXpath = "(//*[contains(text(),'Is this the current company')]/..//input)[%s]";
 			private  WebElement isThisYourCurrentCompany;
-			public WebElement getisThisYourCurrentCompany() {
-				
+			public WebElement getisThisYourCurrentCompany(String dynamciValue) {
+				String xp = String.format(currnetCompanyXpath, dynamciValue);
+				isThisYourCurrentCompany=driver.findElement(By.xpath(xp));
 				return isThisYourCurrentCompany;
 			}
-			public Object[] getisThisYourCurrentCompanyWithName() {
+			public Object[] getisThisYourCurrentCompanyWithName(String dynamicvalue) {
+				String xp = String.format(currnetCompanyXpath, dynamicvalue);
+				isThisYourCurrentCompany=driver.findElement(By.xpath(xp));
+
 				Object[] l = { isThisYourCurrentCompany, " isThisYourCurrentCompany check box" };
 				return l;
 			} 
