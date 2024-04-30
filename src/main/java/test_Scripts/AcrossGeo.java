@@ -36,7 +36,7 @@ public class AcrossGeo extends Base_Test {
 		nlp.OpenBrowser();
 		// fist i s to create all these
 
-	for(int times=1;times<=noOfIterations;times++) {
+	for(int times=1;times<=10;times++) {
 		className = "testign + "+ (times);
 		ExtentConfig.createTest(className);// it will create a new test
 		try {

@@ -2,8 +2,8 @@ package generic;
 
 public interface FrameworkConstants {
 	String URL="http://10.10.10.203:83";
-	String EXCEL_PATH="./TestData/testData.xlsx";
-	String EXCEL_SHEETNAME="Candidate Details";
+	String EXCEL_PATH="./TestData/Book3.xlsx";
+	String EXCEL_SHEETNAME="Sheet1";
 	String PROPERTIES_PATH="./TestData/data.properties.txt";
 	String SCREENSHOT_PATH="./s11/";
 	String REPORTS_PATH="./Reports/";

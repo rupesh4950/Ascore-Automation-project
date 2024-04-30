@@ -55,7 +55,7 @@ public class ReadExcel implements FrameworkConstants{
 				}
 			
 				else {
-					value= rowVal.getCell(i).toString();
+					value= rowVal.getCell(i).toString().strip();
 				values.add(value);
 				}
 				//System.out.println(i+"="+value);
